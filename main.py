@@ -310,7 +310,7 @@ with st.sidebar:
         st.markdown(
         """
     1. Enter your [OpenAI API key](https://platform.openai.com/account/api-keys) and chosen model below 🔑
-    2. Provide details of the application that you would like to threat model  📝
+    2. Provide details of the application that you would like to threat model 📝
     3. Generate a threat list, attack tree and/or mitigating controls for your application 🚀
     """
     )

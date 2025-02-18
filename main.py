@@ -17,6 +17,7 @@ from attack_tree import create_attack_tree_prompt, get_attack_tree, get_attack_t
 from mitigations import create_mitigations_prompt, get_mitigations, get_mitigations_azure, get_mitigations_google, get_mitigations_mistral, get_mitigations_ollama, get_mitigations_anthropic, get_mitigations_lm_studio, get_mitigations_groq
 from test_cases import create_test_cases_prompt, get_test_cases, get_test_cases_azure, get_test_cases_google, get_test_cases_mistral, get_test_cases_ollama, get_test_cases_anthropic, get_test_cases_lm_studio, get_test_cases_groq
 from dread import create_dread_assessment_prompt, get_dread_assessment, get_dread_assessment_azure, get_dread_assessment_google, get_dread_assessment_mistral, get_dread_assessment_ollama, get_dread_assessment_anthropic, get_dread_assessment_lm_studio, get_dread_assessment_groq, dread_json_to_markdown
+from report_generator import generate_pdf, generate_report
 
 # ------------------ Helper Functions ------------------ #
 
@@ -275,6 +276,7 @@ def load_env_variables():
     # Add LM Studio Server endpoint configuration
     lm_studio_endpoint = os.getenv('LM_STUDIO_ENDPOINT', 'http://localhost:1234')
     st.session_state['lm_studio_endpoint'] = lm_studio_endpoint
+
 
 # Call this function at the start of your app
 load_env_variables()
@@ -629,7 +631,7 @@ with st.sidebar:
 
 # ------------------ Main App UI ------------------ #
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Threat Model", "Attack Tree", "Mitigations", "DREAD", "Test Cases"])
+tab1, tab2, tab3, tab4, tab5, tab_report = st.tabs(["Threat Model", "Attack Tree", "Mitigations", "DREAD", "Test Cases", "Report"])
 
 with tab1:
     st.markdown("""
@@ -858,6 +860,8 @@ vulnerabilities and prioritising mitigation efforts.
                     # Visualise the attack tree using the Mermaid custom component
                     st.write("Attack Tree Diagram Preview:")
                     mermaid(mermaid_code)
+                    # Save the attack tree output to session state for report generation:
+                    st.session_state["attack_tree"] = mermaid_code
                     
                     col1, col2, col3, col4, col5 = st.columns([1,1,1,1,1])
                     
@@ -939,6 +943,8 @@ the security posture of the application and protect against potential attacks.
 
                         # Display the suggested mitigations in Markdown
                         st.markdown(mitigations_markdown)
+                        # Save the mitigation output:
+                        st.session_state["mitigations"] = mitigations_markdown
                         break  # Exit the loop if successful
                     except Exception as e:
                         retry_count += 1
@@ -1077,6 +1083,8 @@ scenarios.
 
                         # Display the suggested mitigations in Markdown
                         st.markdown(test_cases_markdown)
+                        # Save the test cases output:
+                        st.session_state["test_cases"] = test_cases_markdown
                         break  # Exit the loop if successful
                     except Exception as e:
                         retry_count += 1
@@ -1097,3 +1105,37 @@ scenarios.
             )
         else:
             st.error("Please generate a threat model first before requesting test cases.")
+            
+# ------------------ Report Tab ------------------ #
+with tab_report:
+    st.header("Combined Security Report")
+
+    # Button to generate the Markdown report
+    if st.button("Generate Markdown Report"):
+        report_content = generate_report()  # your function that concatenates outputs from session_state
+        st.session_state["report_markdown"] = report_content
+        st.markdown(report_content)
+
+    if st.session_state.get("report_markdown"):
+        # Download Markdown file
+        st.download_button(
+            label="Download Markdown Report",
+            data=st.session_state["report_markdown"],
+            file_name="security_report.md",
+            mime="text/markdown"
+        )
+
+        # Button to generate PDF (using WeasyPrint)
+        if st.button("Generate PDF Report"):
+            pdf_bytes = generate_pdf(st.session_state["report_markdown"])
+            st.session_state["report_pdf"] = pdf_bytes
+            st.success("PDF report generated successfully!")
+
+        # Download PDF file if available
+        if st.session_state.get("report_pdf"):
+            st.download_button(
+                label="Download PDF Report",
+                data=st.session_state["report_pdf"],
+                file_name="security_report.pdf",
+                mime="application/pdf"
+            )

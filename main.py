@@ -19,6 +19,12 @@ from test_cases import create_test_cases_prompt, get_test_cases, get_test_cases_
 from dread import create_dread_assessment_prompt, get_dread_assessment, get_dread_assessment_azure, get_dread_assessment_google, get_dread_assessment_mistral, get_dread_assessment_ollama, get_dread_assessment_anthropic, get_dread_assessment_lm_studio, get_dread_assessment_groq, dread_json_to_markdown
 from report_generator import generate_pdf, generate_report
 
+
+# Set LD_LIBRARY_PATH so the loader finds libraries in /usr/lib/x86_64-linux-gnu
+os.environ["LD_LIBRARY_PATH"] = "/usr/lib/x86_64-linux-gnu"
+# Force WeasyPrint to use the full path for libpango
+os.environ["PANGO_LIB"] = "/usr/lib/x86_64-linux-gnu/libpango-1.0.so.0"
+
 # ------------------ Helper Functions ------------------ #
 
 # Function to get available models from LM Studio Server

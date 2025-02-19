@@ -722,7 +722,7 @@ understanding possible vulnerabilities and attack vectors. Use this tab to gener
                 key="sensitive_data",
             )
 
-        # Create input fields for internet_facing and authentication
+            # Create input fields for internet_facing and authentication
             internet_facing = st.selectbox(
                 label="Is the application internet-facing?",
                 options=["Yes", "No"],
@@ -734,6 +734,17 @@ understanding possible vulnerabilities and attack vectors. Use this tab to gener
                 ["SSO", "MFA", "OAUTH2", "Basic", "None"],
                 key="authentication",
             )
+            # Create input fields for operation environment
+            operation_environment = st.selectbox(
+                label="Select the operation environment",
+                options=[
+                    "Physical Environment",
+                    "Network Environment",
+                    "User Environment",
+                ],
+                key="operation_environment",
+            )
+                
 
 
 
@@ -746,7 +757,7 @@ understanding possible vulnerabilities and attack vectors. Use this tab to gener
     if threat_model_submit_button and st.session_state.get('app_input'):
         app_input = st.session_state['app_input']  # Retrieve from session state
         # Generate the prompt using the create_prompt function
-        threat_model_prompt = create_threat_model_prompt(app_type, authentication, internet_facing, sensitive_data, app_input)
+        threat_model_prompt = create_threat_model_prompt(app_type, authentication, internet_facing, sensitive_data, app_input, operation_environment)
 
         # Show a spinner while generating the threat model
         with st.spinner("Analysing potential threats..."):
@@ -830,7 +841,7 @@ vulnerabilities and prioritising mitigation efforts.
         if attack_tree_submit_button and st.session_state.get('app_input'):
             app_input = st.session_state.get('app_input')
             # Generate the prompt using the create_attack_tree_prompt function
-            attack_tree_prompt = create_attack_tree_prompt(app_type, authentication, internet_facing, sensitive_data, app_input)
+            attack_tree_prompt = create_attack_tree_prompt(app_type, authentication, internet_facing, sensitive_data, app_input, operation_environment)
 
             # Show a spinner while generating the attack tree
             with st.spinner("Generating attack tree..."):

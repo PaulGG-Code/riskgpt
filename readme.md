@@ -33,13 +33,21 @@ If you find RISK GPT useful, please consider starring the repository on GitHub. 
 ## Roadmap
 - [x] Add support for multi-modal threat modelling
 - [x] Autogenerate application descriptions based on README files in GitHub repositories
-- [ ] Customisable and exportable reports (e.g. PDF, Word) that include the generated threat model, attack tree, and mitigations
+- [-] Customisable and exportable reports (e.g. PDF, Word) that include the generated threat model, attack tree, and mitigations
 - [ ] Add a helper tool to guide users to create effective application descriptions before generating threat models
 - [ ] Update UI to support multiple languages
 
 ## Changelog
 
-### Version 0.11 (latest)
+### Version 0.13 (latest)
+
+- **RED Directive Agent**: Added compliance mapping tool that maps threat model addresses the cybersecurity requirements of the RED Directive.
+
+### Version 0.12
+
+- **RED Directive Agent**: Added report generation tab. Report generator aggregates the outputs (threat model, attack tree, mitigations, DREAD assessment, and test cases) into one combined report that can be previewed and downloaded. 
+
+### Version 0.11
 
 - **LM Studio Server Support**: Added support for using LM Studio Server as a model provider, allowing users to run their own local LLMs with OpenAI-compatible API endpoints. This complements the existing Ollama integration for local model hosting.
 - **Google Gemini Attack Tree Support**: Added support for generating attack trees using Google Gemini models, expanding the available options for users.

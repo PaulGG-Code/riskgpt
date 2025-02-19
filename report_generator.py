@@ -2,6 +2,10 @@ import markdown # pip install markdown
 from weasyprint import HTML # pip install weasyprint
 import streamlit as st # pip install streamlit
 
+# --------- Report Generation --------- #
+
+# This file contains the functions to generate the security report and convert it to PDF.
+# Function to generate the report.
 def generate_report():
     report = "# Security Report\n\n"
     
@@ -58,6 +62,7 @@ def generate_report():
     
     return report
 
+# Function to generate the PDF.
 def generate_pdf(report_md):
     # Convert Markdown to HTML with fenced code and table support
     html_content = markdown.markdown(report_md, extensions=['fenced_code', 'tables'])
@@ -127,7 +132,7 @@ def generate_pdf(report_md):
                 background-color: #f2f2f2;
             }}
 
-            /* Example: If you have 7 columns (as in DREAD table), define widths with nth-of-type */
+            /* Example: If we have 7 columns (as in DREAD table), we should define widths with nth-of-type */
             /* Adjust these as needed for your actual column count and widths */
             th:nth-of-type(1), td:nth-of-type(1) {{ width: 12%; }}
             th:nth-of-type(2), td:nth-of-type(2) {{ width: 25%; }}

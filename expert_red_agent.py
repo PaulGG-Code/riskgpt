@@ -6,10 +6,15 @@ from anthropic import Anthropic
 from mistralai import Mistral
 from groq import Groq
 
+# --------- Expert RED Compliance Agent --------- #
+
+# Function to get expert analysis from the selected LLM provider
 def get_expert_analysis(prompt):
     provider = st.session_state.get("model_provider", "OpenAI API")
     expert_analysis = ""
-    
+    # Check the selected provider and call the appropriate API
+    # Note: Replace the placeholders with your actual API keys and model names
+    # Note: You can also use environment variables to store sensitive information
     if provider == "OpenAI API":
         openai_api_key = st.session_state.get("openai_api_key", "")
         selected_model = st.session_state.get("selected_model", "gpt-4o")
@@ -126,7 +131,9 @@ def get_expert_analysis(prompt):
     
     return expert_analysis
 
+# Function to run the expert agent for RED compliance evaluation
 def run_expert_agent():
+    # Function to extract relevant threats based on a specific category
     def extract_relevant_threats(threat_type):
         """ Extracts threats related to a specific category by checking the threat model content. """
         threat_model = st.session_state.get("threat_model", [])
@@ -145,7 +152,7 @@ def run_expert_agent():
             threat_text = str(threat_model).lower()
 
         return threat_text if threat_type in threat_text else "No relevant issues found"
-
+    # Function to extract relevant mitigations based on a specific category
     def extract_relevant_mitigations(mitigation_type):
         """ Extracts mitigations related to a specific category by checking the mitigations content. """
         mitigations = st.session_state.get("mitigations", [])
@@ -164,6 +171,7 @@ def run_expert_agent():
             mitigation_text = str(mitigations).lower()
 
         return mitigation_text if mitigation_type in mitigation_text else "N/A"
+    # Generate the expert analysis prompt for RED compliance evaluation
     prompt = f"""
 You are a **cybersecurity and EU regulatory compliance expert**, specializing in **Radio Equipment Directive (RED, Directive 2014/53/EU)** and its harmonized standards **18031-1, 18031-2, and 18031-3**.
 

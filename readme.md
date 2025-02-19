@@ -6,7 +6,6 @@ RISK GPT is an AI-powered threat modelling tool that leverages Large Language Mo
 - [Star the Repo](#star-the-repo)
 - [Features](#features)
 - [Roadmap](#roadmap)
-- [Talk at Open Security Summit](#talk-at-open-security-summit)
 - [Changelog](#changelog)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -166,7 +165,7 @@ Release highlights:
 1. Clone this repository:
 
     ```bash
-    git clone https://github.com/mrwadams/stride-gpt.git
+    git clone https://github.com/paulgg-code/riskgpt.git
     ```
 
 2. Change to the cloned repository directory:
@@ -207,7 +206,7 @@ Release highlights:
 1. Pull the Docker image from Docker Hub:
 
     ```bash
-    docker pull mrwadams/stridegpt:latest
+    docker pull lolplz/riskgpt:latest
     ```
 
 2. Create a `.env` file with your API keys as described in step 4 of Option 1.
@@ -231,7 +230,7 @@ Release highlights:
 1. Run the Docker container, mounting the `.env` file:
 
     ```bash
-    docker run -p 8501:8501 --env-file .env mrwadams/stridegpt
+    docker run -p 8501:8501 --env-file .env lolplz/riskgpt
     ```
     This command will start the container, map port 8501 (default for Streamlit apps) from the container to your host machine, and load the environment variables from the `.env` file.
 

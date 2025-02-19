@@ -203,6 +203,7 @@ Your task is to evaluate a **specific product under evaluation (ToE)** using the
 ---
 
 ## **1. Overall Compliance Summary**
+- Remind the reader of the **product under evaluation (ToE)** and the **scope of the security assessment**.
 - Provide a **summary of the identified security threats** based strictly on the provided inputs.
 - Identify **any RED compliance gaps** that are explicitly mentioned in the security assessment.
 - If no threats are identified in the available inputs, state:  
@@ -265,7 +266,7 @@ Your task is to evaluate a **specific product under evaluation (ToE)** using the
   If these aspects have been evaluated separately, please ensure they are documented in the risk assessment for a complete compliance picture."**  
 ---
 
-## **6. 🚨 Guidelines for Scope Enforcement**
+🚨 Guidelines for Scope Enforcement**
 ✅ **DO NOT generate new risks, threats, or mitigations.**  
 ✅ **Ensure every compliance issue is MAPPED to provided inputs.**  
 ✅ **If a compliance requirement has NO corresponding threat, explicitly exclude it from analysis.**  

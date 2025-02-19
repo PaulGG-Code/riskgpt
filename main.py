@@ -1110,9 +1110,9 @@ scenarios.
 # ------------------ RED Expert Analysis Tab ------------------ #
 with tab_red_expert:
     st.markdown("""
-RED (Readiness, Expertise, Depth) is a framework for evaluating the security of an application. It assesses the readiness of the
-application to handle security threats, the expertise of the development team in addressing security issues, and the depth of the
-security measures implemented. Use this tab to run an expert assessment of your application's security posture.
+RED Directive (Radio Equipment Directive) is a European Union directive that sets out the requirements for radio equipment placed on the market.
+RED Expert Analysis is a tool that helps manufacturers, importers, and distributors of radio equipment to assess the compliance of their products
+with the RED Directive. Use this tab to run an expert assessment of your radio equipment and generate a compliance report.
 """)
     st.markdown("""---""")
     if st.button("Run Expert Assessment"):

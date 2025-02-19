@@ -1109,7 +1109,12 @@ scenarios.
 
 # ------------------ RED Expert Analysis Tab ------------------ #
 with tab_red_expert:
-    st.header("Expert Analysis")
+    st.markdown("""
+RED (Readiness, Expertise, Depth) is a framework for evaluating the security of an application. It assesses the readiness of the
+application to handle security threats, the expertise of the development team in addressing security issues, and the depth of the
+security measures implemented. Use this tab to run an expert assessment of your application's security posture.
+""")
+    st.markdown("""---""")
     if st.button("Run Expert Assessment"):
         with st.spinner("Generating expert analysis..."):
             expert_result = run_expert_agent()
@@ -1124,7 +1129,10 @@ with tab_red_expert:
         )
 # ------------------ Report Tab ------------------ #
 with tab_report:
-    st.header("Combined Security Report")
+    st.markdown("""
+Genearte a comprehensive security report for your application. The report includes the threat model, attack tree, mitigations, DREAD risk assessment, test cases, and expert analysis.
+""")
+    st.markdown("""---""")
 
     # Button to generate the Markdown report
     if st.button("Generate Markdown Report"):

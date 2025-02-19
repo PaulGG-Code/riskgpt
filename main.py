@@ -18,7 +18,7 @@ from mitigations import create_mitigations_prompt, get_mitigations, get_mitigati
 from test_cases import create_test_cases_prompt, get_test_cases, get_test_cases_azure, get_test_cases_google, get_test_cases_mistral, get_test_cases_ollama, get_test_cases_anthropic, get_test_cases_lm_studio, get_test_cases_groq
 from dread import create_dread_assessment_prompt, get_dread_assessment, get_dread_assessment_azure, get_dread_assessment_google, get_dread_assessment_mistral, get_dread_assessment_ollama, get_dread_assessment_anthropic, get_dread_assessment_lm_studio, get_dread_assessment_groq, dread_json_to_markdown
 from report_generator import generate_pdf, generate_report
-
+from expert_red_agent import run_expert_agent
 
 # ------------------ Helper Functions ------------------ #
 
@@ -632,7 +632,7 @@ with st.sidebar:
 
 # ------------------ Main App UI ------------------ #
 
-tab1, tab2, tab3, tab4, tab5, tab_report = st.tabs(["Threat Model", "Attack Tree", "Mitigations", "DREAD", "Test Cases", "Report"])
+tab1, tab2, tab3, tab4, tab5,tab_red_expert, tab_report = st.tabs(["Threat Model", "Attack Tree", "Mitigations", "DREAD", "Test Cases", "RED Expert", "Report"])
 
 with tab1:
     st.markdown("""
@@ -1106,7 +1106,22 @@ scenarios.
             )
         else:
             st.error("Please generate a threat model first before requesting test cases.")
-            
+
+# ------------------ RED Expert Analysis Tab ------------------ #
+with tab_red_expert:
+    st.header("Expert Analysis")
+    if st.button("Run Expert Assessment"):
+        with st.spinner("Generating expert analysis..."):
+            expert_result = run_expert_agent()
+            st.session_state["expert_analysis"] = expert_result
+            st.markdown(expert_result)
+    if st.session_state.get("expert_analysis"):
+        st.download_button(
+            label="Download Expert Analysis",
+            data=st.session_state["expert_analysis"],
+            file_name="expert_analysis.md",
+            mime="text/markdown"
+        )
 # ------------------ Report Tab ------------------ #
 with tab_report:
     st.header("Combined Security Report")
@@ -1140,3 +1155,4 @@ with tab_report:
                 file_name="security_report.pdf",
                 mime="application/pdf"
             )
+            

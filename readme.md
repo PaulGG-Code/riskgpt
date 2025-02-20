@@ -32,7 +32,9 @@ If you find RISK GPT useful, please consider starring the repository on GitHub. 
 ## Roadmap
 - [x] Add support for multi-modal threat modelling
 - [x] Autogenerate application descriptions based on README files in GitHub repositories
-- [-] Customisable and exportable reports (e.g. PDF, Word) that include the generated threat model, attack tree, and mitigations
+- [x] Exportable reports (e.g. PDF, Word) that include the generated threat model, attack tree, and mitigations
+- [ ] Implement regulatory compliance functionalities
+- [ ] Customisable  reports (e.g. PDF, Word) 
 - [ ] Add a helper tool to guide users to create effective application descriptions before generating threat models
 - [ ] Update UI to support multiple languages
 
@@ -41,10 +43,13 @@ If you find RISK GPT useful, please consider starring the repository on GitHub. 
 ### Version 0.13 (latest)
 
 - **RED Directive Agent**: Added compliance mapping tool that maps threat model addresses the cybersecurity requirements of the RED Directive.
+Enhance expert agent compliance evaluation with detailed category assessments and key compliance areas
+- **Threat Model Agent**: Enhance threat model JSON structure with mitigation considerations and improve documentation clarity.
+
 
 ### Version 0.12
 
-- **RED Directive Agent**: Added report generation tab. Report generator aggregates the outputs (threat model, attack tree, mitigations, DREAD assessment, and test cases) into one combined report that can be previewed and downloaded. 
+- **Report Generation**: Added report generation tab. Report generator aggregates the outputs (threat model, attack tree, mitigations, DREAD assessment, and test cases) into one combined report that can be previewed and downloaded. 
 
 ### Version 0.11
 
@@ -56,6 +61,9 @@ If you find RISK GPT useful, please consider starring the repository on GitHub. 
 - **Improved Threat Model Generation**: Enhanced the guidance and prompts for threat model generation to produce more comprehensive and actionable results.
 - **Structured Output Support**: Enhanced JSON output handling across all model providers to ensure reliable threat model and DREAD assessment generation.
 - **UI Enhancements**: Updated the user interface to accommodate new model configurations and improved warning messages for local LLM limitations.
+
+<details>
+  <summary>Click to view release notes for earlier versions.</summary>
 
 ### Version 0.10
 
@@ -78,9 +86,6 @@ This release added support for the following models:
 - **GPT4o mini**: I've added support for OpenAI's recently released GPT4o mini model. GPT4o mini is a cost-efficient small model that still provides high-quality responses for threat modelling tasks.
 
 - **Gemini 1.5 Pro (stable)**: Users can now choose from either the stable or preview versions of the Gemini 1.5 Pro model.
-
-<details>
-  <summary>Click to view release notes for earlier versions.</summary>
 
 
 ### Version 0.8

@@ -59,6 +59,13 @@ def generate_report():
         report += st.session_state["test_cases"] + "\n"
     else:
         report += "Test cases not generated.\n"
+
+    # RED Expert Analysis
+    report += "## Expert Analysis\n\n"
+    if st.session_state.get("expert_analysis"):
+        report += st.session_state["expert_analysis"] + "\n"
+    else:
+        report += "Expert analysis not generated.\n"
     
     return report
 

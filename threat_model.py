@@ -14,12 +14,12 @@ def json_to_markdown(threat_model, improvement_suggestions):
     markdown_output = "## Threat Model\n\n"
     
     # Start the markdown table with headers
-    markdown_output += "| Threat Type | Scenario | Potential Impact |\n"
-    markdown_output += "|-------------|----------|------------------|\n"
+    markdown_output += "| Threat Type | Scenario | Potential Impact | Mitigation Consideration|\n"
+    markdown_output += "|-------------|----------|------------------|-------------------------|\n"
     
     # Fill the table rows with the threat model data
     for threat in threat_model:
-        markdown_output += f"| {threat['Threat Type']} | {threat['Scenario']} | {threat['Potential Impact']} |\n"
+        markdown_output += f"| {threat['Threat Type']} | {threat['Scenario']} | {threat['Potential Impact']} | {threat['Mitigation Consideration']} |\n"
     
     markdown_output += "\n\n## Improvement Suggestions\n\n"
     for suggestion in improvement_suggestions:
@@ -35,8 +35,17 @@ Act as a cyber security expert with more than 20 years experience of using the S
 Pay special attention to the README content as it often provides valuable context about the project's purpose, architecture, and potential security considerations.
 
 For each of the STRIDE categories (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, and Elevation of Privilege), list multiple (3 or 4) credible threats if applicable. Each threat scenario should provide a credible scenario in which the threat could occur in the context of the application. It is very important that your responses are tailored to reflect the details you are given.
+- Be **realistic and specific** to the application's architecture.
+- Reflect the **actual risk level**, considering **existing security controls**.
+- Use **precise language** to describe the threat and impact.
+- **Avoid generic threats** that are not relevant to the application.
 
-When providing the threat model, use a JSON formatted response with the keys "threat_model" and "improvement_suggestions". Under "threat_model", include an array of objects with the keys "Threat Type", "Scenario", and "Potential Impact". 
+When providing the threat model, use a JSON formatted response with the keys "threat_model" and "improvement_suggestions". Under "threat_model", include an array of objects with the keys "Threat Type", "Scenario", "Potential Impact" and "Mitigation Consideration". 
+- `"threat_model"`: An array of objects with:
+  - `"Threat Type"`: STRIDE category.
+  - `"Scenario"`: A **real-world** example relevant to the application.
+  - `"Potential Impact"`: Adjusted based on existing **security controls**.
+  - `"Mitigation Consideration"`: **Document security measures in place** that reduce the threat’s severity.
 
 Under "improvement_suggestions", include an array of strings that suggest what additional information or details the user could provide to make the threat model more comprehensive and accurate in the next iteration. Focus on identifying gaps in the provided application description that, if filled, would enable a more detailed and precise threat analysis. For example:
 - Missing architectural details that would help identify more specific threats
@@ -45,6 +54,7 @@ Under "improvement_suggestions", include an array of strings that suggest what a
 - Missing technical stack information
 - Unclear system boundaries or trust zones
 - Incomplete description of sensitive data handling
+- Lack of security controls description for better impact assessment.
 
 Do not provide general security recommendations - focus only on what additional information would help create a better threat model.
 
@@ -62,19 +72,23 @@ Example of expected JSON response format:
       "threat_model": [
         {{
           "Threat Type": "Spoofing",
-          "Scenario": "Example Scenario 1",
-          "Potential Impact": "Example Potential Impact 1"
+          "Scenario": "An attacker could impersonate a legitimate user by exploiting session hijacking due to missing session expiration.",
+          "Potential Impact": "High if no session management controls exist.",
+          "Mitigation Consideration": "Impact reduced to Medium due to enforced session timeouts and MFA."
         }},
         {{
-          "Threat Type": "Spoofing",
-          "Scenario": "Example Scenario 2",
-          "Potential Impact": "Example Potential Impact 2"
+          "Threat Type": "Tampering",
+          "Scenario": "An attacker modifies API request parameters to escalate privileges.",
+          "Potential Impact": "Critical if no input validation exists.",
+          "Mitigation Consideration": "Impact reduced to Low due to strict role-based access control (RBAC) and parameterized input handling."
         }},
         // ... more threats
       ],
       "improvement_suggestions": [
         "Please provide more details about the authentication flow between components to better analyze potential authentication bypass scenarios.",
         "Consider adding information about how sensitive data is stored and transmitted to enable more precise data exposure threat analysis.",
+        "Provide more details on how authentication tokens are stored and managed.",
+        "Clarify the data encryption methods in use to better assess confidentiality risks."
         // ... more suggestions for improving the threat model input
       ]
     }}
@@ -90,7 +104,7 @@ def create_image_analysis_prompt():
 
       1. Analyse the diagram
       2. Explain the system architecture to the Security Architect. Your explanation should cover the key 
-         components, their interactions, and any technologies used.
+         components, their interactions, the security parameters implemented and any technologies used.
     
     Provide a direct explanation of the diagram in a clear, structured format, suitable for a professional 
     discussion.

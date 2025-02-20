@@ -68,7 +68,7 @@ If you find RISK GPT useful, please consider starring the repository on GitHub. 
 
 Release highlights:
 
-- **Local Model Hosting**: RISK GPT now supports the use of locally hosted LLMs via an integration with Ollama. This feature is particularly useful for organisations with strict data privacy requirements or those who prefer to keep their data on-premises. Please note that this feature is not available for users of the RISK GPT version hosted on Streamlit Community Cloud at https://stridegpt.streamlit.app
+- **Local Model Hosting**: RISK GPT now supports the use of locally hosted LLMs via an integration with Ollama. This feature is particularly useful for organisations with strict data privacy requirements or those who prefer to keep their data on-premises. Please note that this feature is not available for users of the RISK GPT version hosted on Streamlit Community Cloud at https://riskgpt.streamlit.app
 - **Mistral Client v1.0**: RISK GPT now uses v1.0 of the Mistral Client, which resolves the breaking changes introduced in the latest version of the Mistral API. This ensures that RISK GPT users can continue to leverage the Mistral API for threat modelling tasks.
 
 ### Version 0.8.1
@@ -121,7 +121,7 @@ Release highlights:
 Release highlights:
 
 - **Azure OpenAI Service Integration**: Users can now opt to use OpenAI 1106-preview models hosted on the Azure OpenAI Service, in addition to the standard OpenAI API.
-- **Docker Container Image**: To make it easier to deploy RISK GPT on public and private clouds, the tool is now available as a [Docker container image](https://hub.docker.com/repository/docker/mrwadams/stridegpt/general) on Docker Hub.
+- **Docker Container Image**: To make it easier to deploy RISK GPT on public and private clouds, the tool is now available as a [Docker container image](https://hub.docker.com/repository/docker/lolplz/riskgpt/general) on Docker Hub.
 
 ### Version 0.4
 
@@ -171,7 +171,7 @@ Release highlights:
 2. Change to the cloned repository directory:
 
     ```bash
-    cd stride-gpt
+    cd riskgpt
     ```
 
 3. Install the required Python packages:

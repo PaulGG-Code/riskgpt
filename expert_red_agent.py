@@ -133,7 +133,6 @@ def get_expert_analysis(prompt):
 
 # Function to run the expert agent for RED compliance evaluation
 def run_expert_agent():
-    # Function to extract relevant threats based on a specific category
     def extract_relevant_threats(threat_type):
         """ Extracts threats related to a specific category by checking the threat model content. """
         threat_model = st.session_state.get("threat_model", [])
@@ -152,7 +151,7 @@ def run_expert_agent():
             threat_text = str(threat_model).lower()
 
         return threat_text if threat_type in threat_text else "No relevant issues found"
-    # Function to extract relevant mitigations based on a specific category
+
     def extract_relevant_mitigations(mitigation_type):
         """ Extracts mitigations related to a specific category by checking the mitigations content. """
         mitigations = st.session_state.get("mitigations", [])
@@ -171,7 +170,7 @@ def run_expert_agent():
             mitigation_text = str(mitigations).lower()
 
         return mitigation_text if mitigation_type in mitigation_text else "N/A"
-    # Generate the expert analysis prompt for RED compliance evaluation
+
     prompt = f"""
 You are a **cybersecurity and EU regulatory compliance expert**, specializing in **Radio Equipment Directive (RED, Directive 2014/53/EU)** and its harmonized standards **18031-1, 18031-2, and 18031-3**.
 
@@ -212,11 +211,22 @@ Your task is to evaluate a **specific product under evaluation (ToE)** using the
 ---
 
 ## **2. Compliance Analysis Based on Security Inputs**
-### **📌 Category 1: Network Connected Equipment (18031-1)**  
-- **Derive compliance issues from the Threat Model, Attack Tree, and DREAD scores.**  
-- If no network-related threats exist in the provided security inputs, state:  
-  **"No network security threats were identified in the provided security assessment."**
+We will assess compliance based on three main categories:  
 
+### **📌 Category 1: Network Connected Equipment (18031-1)**  
+#### **Key Compliance Areas**
+- **Software Safety**: Protection against unauthorized control, firmware alterations.  
+- **Communication Security**: Encryption for data interception protection.  
+- **Data Protection**: Ensuring confidentiality, integrity, and availability.  
+- **Compromise Prevention**: Preventing breaches and unauthorized actions.  
+- **Remote Control Risks (IoT, 5G, etc.)**: Securing remote device access.  
+- **Security Measures**: Implementing firewalls, intrusion detection.  
+- **Authentication**: Strong authentication for users and devices.  
+- **Physical Attacks**: Protecting against hardware tampering.  
+- **Smart Sensors**: Ensuring secure data collection and preventing manipulation.  
+- **Remote Management**: Secure administration of connected devices.  
+
+#### **Assessment Table**
 | **Requirement**                      | **Identified Issues (Before Mitigations)** | **Confirmed Mitigations (If Provided)** | **Compliance Status** |
 |--------------------------------------|------------------------------------------|----------------------------------------|----------------------|
 | **Software Safety**                  | {extract_relevant_threats("software")} | {extract_relevant_mitigations("software")} | ✅ / ❌ |
@@ -226,10 +236,16 @@ Your task is to evaluate a **specific product under evaluation (ToE)** using the
 ---
 
 ### **📌 Category 2: Equipment Collecting Personal Information (18031-2)**  
-- **Identify compliance risks related to personal data, encryption, and logging from the security assessment inputs.**  
-- If no personal data threats exist in the Threat Model, state:  
-  **"No personal data-related security threats were found in the provided security assessment."**
+#### **Key Compliance Areas**
+- **Integrated Access Authentication**: Secure authentication for accessing personal data.  
+- **Physical Protection for Authentication Data**: Prevent unauthorized access to stored credentials.  
+- **Notifications**: Logging unauthorized access attempts.  
+- **External Contact Access**: Prevent unauthorized device connections.  
+- **Personal Information Protection**: Encryption, GDPR compliance.  
+- **Sensor-Based Data Collection Risks**: Prevent misuse of biometric data.  
+- **Special Category Data Handling**: Secure handling of medical, financial records.  
 
+#### **Assessment Table**
 | **Requirement**                      | **Identified Issues (Before Mitigations)** | **Confirmed Mitigations (If Provided)** | **Compliance Status** |
 |--------------------------------------|------------------------------------------|----------------------------------------|----------------------|
 | **Data Protection & Encryption**     | {extract_relevant_threats("encryption")} | {extract_relevant_mitigations("encryption")} | ✅ / ❌ |
@@ -238,10 +254,14 @@ Your task is to evaluate a **specific product under evaluation (ToE)** using the
 ---
 
 ### **📌 Category 3: Financial Asset Equipment (18031-3)**  
-- **Check if financial security risks (e.g., fraud, transaction security) exist in the Threat Model.**  
-- If no financial threats exist, state:  
-  **"No financial security threats were identified in the provided security assessment."**
+#### **Key Compliance Areas**
+- **Best Practices**: Secure all financial transactions.  
+- **Secure Authentication**: Secure access to financial platforms.  
+- **Data Control**: Ensure transaction data integrity.  
+- **Audit & Compliance**: Periodic security audits.  
+- **Security for Financial Transactions**: Fraud detection, secure API access.  
 
+#### **Assessment Table**
 | **Requirement**                      | **Identified Issues (Before Mitigations)** | **Confirmed Mitigations (If Provided)** | **Compliance Status** |
 |--------------------------------------|------------------------------------------|----------------------------------------|----------------------|
 | **Transaction Security**             | {extract_relevant_threats("transaction")} | {extract_relevant_mitigations("transaction")} | ✅ / ❌ |
@@ -249,29 +269,11 @@ Your task is to evaluate a **specific product under evaluation (ToE)** using the
 
 ---
 
-## **4. Threat-Based Compliance Evaluation (Strict Mapping to Provided Inputs)**
-- If the Threat Model, Attack Tree, or DREAD scores indicate compliance gaps, explain how they map to RED compliance requirements.
-- If no threats are found in the provided inputs, state:  
-  **"No explicit compliance gaps were identified in the security assessment."**
-
-## **5. Final Compliance Statement**
+## **4. Final Compliance Statement**
 - If a RED compliance requirement was not **explicitly analyzed in the threat model, attack tree, or DREAD assessment**, state:  
-  **"This compliance requirement was not covered in the provided security assessment and is outside the scope of this evaluation."**  
+  **"This compliance requirement was not covered in the provided security assessment and is outside the scope of this evaluation."**
 
-- If no threats are found but RED still mandates an evaluation, state:  
-  **"While no specific security risks were found in the provided assessment, an ideal evaluation of ToE under RED applicable category would typically assess areas such as:  
-    - Secure firmware updates and network resilience (for 18031-1).  
-    - Personal data encryption, access logging, and privacy protection (for 18031-2).  
-    - Secure transactions, fraud monitoring, and API protection (for 18031-3).  
-  If these aspects have been evaluated separately, please ensure they are documented in the risk assessment for a complete compliance picture."**  
----
-
-🚨 Guidelines for Scope Enforcement**
-✅ **DO NOT generate new risks, threats, or mitigations.**  
-✅ **Ensure every compliance issue is MAPPED to provided inputs.**  
-✅ **If a compliance requirement has NO corresponding threat, explicitly exclude it from analysis.**  
-
-🚀 **Now generate the RED compliance evaluation strictly based on the provided security assessment.**  
+🚀 **Now generate the RED compliance evaluation strictly based on the provided security assessment.**
     """
 
     return get_expert_analysis(prompt)

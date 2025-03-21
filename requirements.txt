@@ -13,3 +13,4 @@ anyio>=4.4.0 # not directly required, pinned by Snyk to avoid a vulnerability
 zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
 markdown==3.7
 WeasyPrint==64.0
+tiktoken==0.9.0

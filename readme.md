@@ -45,6 +45,10 @@ If you find RISK GPT useful, please consider starring the repository on GitHub. 
 - **RED Directive Agent**: Added compliance mapping tool that maps threat model addresses the cybersecurity requirements of the RED Directive.
 Enhance expert agent compliance evaluation with detailed category assessments and key compliance areas
 - **Threat Model Agent**: Enhance threat model JSON structure with mitigation considerations and improve documentation clarity.
+- **Claude 3.7 Integration**: Full integration with Anthropic's Claude 3.7 models across all threat modeling tools, featuring the new "thinking mode" for deeper and more transparent reasoning.
+- **Enhanced GitHub Repository Analysis**: Upgraded repository analysis with smarter file prioritization, expanded language detection, and real-time progress indicators.
+- **GPT-4.5 Preview Compatibility**: Introduced compatibility with OpenAI’s GPT-4.5 preview model, offering clearer model descriptions and improved selection guidance.
+- **Performance Enhancements**: Boosted application efficiency through refined token usage monitoring and proactive alerts for nearing token thresholds.
 
 
 ### Version 0.12

@@ -1,5 +1,5 @@
 # Specify the base image
-FROM python:3.13.3-slim
+FROM python:3.14.0-slim
 
 # Turns off buffering for easier container logging and updating pip as root
 ENV PYTHONUNBUFFERED=1
